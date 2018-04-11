@@ -1,14 +1,17 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
+using ExpenseReview.Data.Contracts;
+using ExpenseReview.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using ReimbursementApp.Data.Contracts;
 using ReimbursementApp.Model;
 using ReimbursementApp.ViewModels;
 
 namespace ReimbursementApp.Controllers.API
 {
+    [Authorize]
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
     public class EmployeeController : Controller
@@ -150,7 +153,7 @@ namespace ReimbursementApp.Controllers.API
                 if (employeeViewModel.RoleName.ToLower() != "user")
                 {
                     //Insert employee in approvers' list
-                    var approverObj = new ApproverList
+                    var approverObj = new ExpenseReview.Models.ApproverList
                     {
                         ApproverId = employeeViewModel.EmployeeId,
                         Name = employeeViewModel.EmployeeName
